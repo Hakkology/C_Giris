@@ -58,7 +58,7 @@ public class Kup : MonoBehaviour
         //    transform.position -= new Vector3(0, hiz * 1 * Time.deltaTime / 2, 0);
         //}
 
-        transform.position -= new Vector3(0, .1f, 0);
+        transform.position -= new Vector3(0, .01f, 0);
         //Debug.Log("Mevcut konumu: " + transform.position);
 
         if (transform.position.y < -5)
@@ -66,6 +66,51 @@ public class Kup : MonoBehaviour
             transform.position = new Vector3(0, 5, 0);
             sayac++;
             Debug.Log("küp ýþýnlandý. Konumu: " + transform.position + "Deneme sayýsý: " + sayac);
+        }
+
+        //transform.Translate();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.position += new Vector3(0, 3, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            transform.position += new Vector3(1, 0 , 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.position += new Vector3(-1, 0, 0);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    transform.Rotate(new Vector3(0, 45, 0));
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    transform.Rotate (new Vector3(0, -45, 0));
+        //}
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(Vector3.forward * 5 * Time.deltaTime );
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(Vector3.back * Time.deltaTime * 5);
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            transform.Rotate(0, -1, 0);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.Rotate(0, 1, 0);
         }
 
     }
