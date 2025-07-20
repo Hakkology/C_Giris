@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealthController : MonoBehaviour
+public class GUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,10 @@ public class PlayerHealthController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ShowGameOverScreen()
+    {
+        Debug.Log("OYUN BÝTTÝ DOSTUM");
     }
 }

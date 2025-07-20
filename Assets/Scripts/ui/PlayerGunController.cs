@@ -17,6 +17,7 @@ public class PlayerGunController : MonoBehaviour
     void Start()
     {
         mevcutAmmo = maxAmmo;
+        UIManager.Instance.hudManager.UpdateKursunMetin(mevcutAmmo.ToString());
     }
 
     // Update is called once per frame
@@ -47,6 +48,7 @@ public class PlayerGunController : MonoBehaviour
     {
         mevcutAmmo = maxAmmo;
         silahDoluyor = false;
+        UIManager.Instance.hudManager.UpdateKursunMetin(mevcutAmmo.ToString());
         Debug.Log("Silah ateþe hazýr");
     }
 
@@ -56,6 +58,7 @@ public class PlayerGunController : MonoBehaviour
         {
             mevcutAmmo--;
             sonAtesZamani = Time.time;
+            UIManager.Instance.hudManager.UpdateKursunMetin(mevcutAmmo.ToString());
             Debug.Log("Kalan mermi: " + mevcutAmmo);
         }
     }

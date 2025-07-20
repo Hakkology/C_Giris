@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public enum CharacterRunState
@@ -11,7 +10,7 @@ public enum CharacterRunState
     Run
 }
 
-public class PlayerAnimatorTest : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     private int hiz =4;
 
@@ -23,11 +22,16 @@ public class PlayerAnimatorTest : MonoBehaviour
     public int yurumeHizi = 4;
     public int kosmaHizi = 7;
 
+    public float maksEnerji = 100;
+    private float mevcutEnerji;
+
     private CharacterRunState zCharacterState;
     private CharacterRunState xCharacterState;
 
     Rigidbody rigidBody;
     Animator animator;
+
+    private bool kosuyorum;
     // Start is called before the first frame update
 
     private void Awake()
@@ -36,8 +40,14 @@ public class PlayerAnimatorTest : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        mevcutEnerji = maksEnerji;
+    }
+
     void Update()
     {
+        kosuyorum = false;
         float zHareketi = Input.GetAxis("Vertical");
         float xHareketi = Input.GetAxis("Horizontal");
 
@@ -46,9 +56,10 @@ public class PlayerAnimatorTest : MonoBehaviour
 
         if (zHareketi > 0)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && mevcutEnerji > 20)
             {
                 zCharacterState = CharacterRunState.Run;
+                kosuyorum = true;
             }
             else
             {
@@ -57,9 +68,10 @@ public class PlayerAnimatorTest : MonoBehaviour
         }
         else if (zHareketi < 0)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && mevcutEnerji >20)
             {
                 zCharacterState = CharacterRunState.RunBack;
+                kosuyorum = true;
             }
             else
             {
@@ -107,6 +119,24 @@ public class PlayerAnimatorTest : MonoBehaviour
             RotateCharacter(true);
         }
 
+        EnerjiYonetimi();
+
+    }
+
+    private void EnerjiYonetimi()
+    {
+        if (kosuyorum)
+        {
+            mevcutEnerji -= 5 * Time.deltaTime;
+        }
+        else
+        {
+            if (mevcutEnerji < maksEnerji)
+            {
+                mevcutEnerji += 3 * Time.deltaTime;
+            }
+        }
+        UIManager.Instance.hudManager.UpdateEnerjiMetin(mevcutEnerji);
     }
 
     public void RotateCharacter(bool sagadogru)
